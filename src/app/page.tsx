@@ -1,8 +1,6 @@
-import Head from 'next/head';
-import styles from '../styles/Home.module.css';
 import { useEffect, useState } from 'react';
 
-const generateStars = (numStars) => {
+const generateStars = (numStars: number) => {
     const starsArray = [];
     for (let i = 0; i < numStars; i++) {
         const star = {
@@ -16,14 +14,12 @@ const generateStars = (numStars) => {
     return starsArray;
 };
 
-export default function Home() {
+const Home = () => {
     const [pizzaLeft, setPizzaLeft] = useState(50);
-    const [stars, setStars] = useState([]);
+    const [stars, setStars] = useState(generateStars(200));
 
     useEffect(() => {
-        setStars(generateStars(200));
-
-        const handleKeyDown = (event) => {
+        const handleKeyDown = (event: KeyboardEvent) => {
             if (event.key === 'ArrowLeft') {
                 setPizzaLeft((prev) => prev - 10);
                 setStars((prevStars) => prevStars.map(star => ({
@@ -40,21 +36,15 @@ export default function Home() {
     }, []);
 
     return (
-        <div className={styles.container}>
-            <Head>
-                <title>Pizza in Space</title>
-                <meta name="description" content="A fun with pizza in space" />
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
-
-            <main className={styles.main}>
-                <div className={styles.gameContainer}>
-                    <img src="/piz.png" className={styles.pizza} style={{ left: `${pizzaLeft}%` }} alt="Pizza" />
-                    <div className={styles.starsContainer}>
+        <div className="container">
+            <main className="main">
+                <div className="gameContainer">
+                    <img src="/piz.png" className="pizza" style={{ left: `${pizzaLeft}%` }} alt="Pizza" />
+                    <div className="starsContainer">
                         {stars.map(star => (
                             <div
                                 key={star.id}
-                                className={styles.star}
+                                className="star"
                                 style={{
                                     left: `${star.left}%`,
                                     top: `${star.top}%`,
@@ -65,6 +55,9 @@ export default function Home() {
                         ))}
                     </div>
                 </div>
+            </main>
         </div>
     );
-}
+};
+
+export default Home;
