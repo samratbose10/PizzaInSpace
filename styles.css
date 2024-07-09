@@ -3,20 +3,39 @@ body {
     overflow: hidden;
 }
 
-#landingPage {
+#landingPage, #gameOverPage {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: url('https://art.pixilart.com/sr2acbd0eb694d5.gif') no-repeat center center fixed;
-    background-size: cover;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 }
-#startButton {
+
+#landingPage {
+    background: url('https://art.pixilart.com/sr2acbd0eb694d5.gif') no-repeat center center fixed;
+    background-size: cover;
+}
+
+#gameOverPage {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+#messageBox, #gameOverBox {
+    padding: 20px;
+    background-color: #F0EAD6;
+    border: 1px solid #8B4513;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 2s forwards;
+    font-size: 24px;
+    text-align: center;
+}
+
+#startButton, #restartButton {
     padding: 20px 40px;
     font-size: 24px;
     cursor: pointer;

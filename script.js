@@ -6,10 +6,14 @@ canvas.height = window.innerHeight;
 const pizzaImg = new Image();
 pizzaImg.src = 'piz.png';
 
+const asteroidImg = new Image();
+asteroidImg.src = 'astro.png';
+
 const pizza = {
     x: canvas.width / 2 - 50,
     y: canvas.height - 100,
     width: 100,
+    height: 100,
     speed: 5
 };
 
@@ -29,7 +33,7 @@ for (let i = 0; i < starCount; i++) {
 
 for (let i = 0; i < asteroidCount; i++) {
     asteroids.push({
-        x: Math.rndom() * canvas.width,
+        x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         width: 50,
         height: 50,
@@ -61,6 +65,28 @@ function drawStars() {
             star.x = Math.random() * canvas.width;
         }
     });
+}
+
+function drawAsteroids() {
+    asteroids.forEach(asteroid => {
+        ctx.drawImage(asteroidImg, asteroid.x, asteroid.y, asteroid.width, asteroid.height);
+        asteroid.y += asteroid.speed;
+        if (asteroid.y > canvas.height) {
+            asteroid.y = 0;
+            asteroid.x = Math.random() * canvas.width;
+        }
+        if (
+            pizza.x < asteroid.x + asteroid.width &&
+            pizza.x + pizza.width > asteroid.x &&
+            pizza.y < asteroid.y + asteroid.height &&
+            pizza.height + pizza.y > asteroid.y
+        ) {
+            document.getElementById('gameOverPage').style.display = 'flex';
+            canvas.style.display = 'none';
+        }
+    });
+}
+
 function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawStars();
@@ -76,6 +102,11 @@ pizzaImg.onload = () => {
 document.getElementById('startButton').addEventListener('click', () => {
     document.getElementById('landingPage').style.display = 'none';
     canvas.style.display = 'block';
+});
+
+document.getElementById('restartButton').addEventListener('click', () => {
+    document.getElementById('gameOverPage').style.display = 'none';
+    document.getElementById('landingPage').style.display = 'flex';
 });
 
 window.onload = () => {
