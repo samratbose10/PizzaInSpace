@@ -14,7 +14,8 @@ const pizza = {
     y: canvas.height - 100,
     width: 100,
     height: 100,
-    speed: 5
+    speed: 5,
+    element: document.createElement('div')
 };
 
 const stars = [];
@@ -23,6 +24,7 @@ const asteroids = [];
 const asteroidCount = 10;
 let asteroidsActive = false;
 let gameStarted = false;
+let gameOver = false;
 
 for (let i = 0; i < starCount; i++) {
     stars.push({
@@ -36,7 +38,7 @@ for (let i = 0; i < starCount; i++) {
 for (let i = 0; i < asteroidCount; i++) {
     asteroids.push({
         x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
+        y: Math.random() * (canvas.height / 2), 
         width: 50,
         height: 50,
         speed: Math.random() * 3 + 2
@@ -61,10 +63,12 @@ function drawStars() {
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
         ctx.fill();
-        star.y += star.speed;
-        if (star.y > canvas.height) {
-            star.y = 0;
-            star.x = Math.random() * canvas.width;
+        if (!gameOver) {
+            star.y += star.speed;
+            if (star.y > canvas.height) {
+                star.y = 0;
+                star.x = Math.random() * canvas.width;
+            }
         }
     });
 }
@@ -84,13 +88,28 @@ function drawAsteroids() {
                 pizza.y < asteroid.y + asteroid.height &&
                 pizza.height + pizza.y > asteroid.y
             ) {
-                document.getElementById('gameOverPage').style.display = 'flex';
-                canvas.style.display = 'none';
+                gameOver = true;
                 asteroidsActive = false;
-                gameStarted = false;
+                document.getElementById('gameOverMessage').style.display = 'block';
+                triggerGameOverAnimation();
+                setTimeout(() => {
+                    window.location.reload();
+                }, 10000);
             }
         });
     }
+}
+
+function triggerGameOverAnimation() {
+    pizza.element.style.position = 'absolute';
+    pizza.element.style.left = pizza.x + 'px';
+    pizza.element.style.top = pizza.y + 'px';
+    pizza.element.style.width = pizza.width + 'px';
+    pizza.element.style.height = pizza.height + 'px';
+    pizza.element.style.backgroundImage = `url(${pizzaImg.src})`;
+    pizza.element.style.backgroundSize = 'cover';
+    pizza.element.style.animation = 'gameOverAnimation 2s forwards';
+    document.body.appendChild(pizza.element);
 }
 
 function drawTimer(timeLeft) {
@@ -111,15 +130,18 @@ function countdown() {
 
 function startAsteroids() {
     asteroidsActive = true;
+    resetAsteroids();
     countdown();
 }
 
 function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawStars();
-    drawPizza();
+    if (!gameOver) {
+        drawPizza();
+    }
     drawAsteroids();
-    if (gameStarted) {
+    if (gameStarted && !gameOver) {
         drawTimer(timeLeft);
     }
     requestAnimationFrame(gameLoop);
@@ -136,21 +158,11 @@ document.getElementById('startButton').addEventListener('click', () => {
     setTimeout(startAsteroids, 5000);
 });
 
-document.getElementById('restartButton').addEventListener('click', () => {
-    document.getElementById('gameOverPage').style.display = 'none';
-    document.getElementById('landingPage').style.display = 'flex';
-    timeLeft = 25;
-    asteroidsActive = false;
-    gameStarted = false;
-    resetAsteroids();
-    canvas.style.display = 'none';
-});
-
 function resetAsteroids() {
-    for (let i = 0; i < asteroids.length; i++) {
-        asteroids[i].x = Math.random() * canvas.width;
-        asteroids[i].y = Math.random() * canvas.height;
-    }
+    asteroids.forEach(asteroid => {
+        asteroid.x = Math.random() * canvas.width;
+        asteroid.y = Math.random() * (canvas.height / 2);
+    });
 }
 
 window.onload = () => {

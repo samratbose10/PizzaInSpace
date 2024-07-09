@@ -3,7 +3,7 @@ body {
     overflow: hidden;
 }
 
-#landingPage, #gameOverPage {
+#landingPage {
     position: absolute;
     top: 0;
     left: 0;
@@ -13,18 +13,11 @@ body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-}
-
-#landingPage {
     background: url('https://art.pixilart.com/sr2acbd0eb694d5.gif') no-repeat center center fixed;
     background-size: cover;
 }
 
-#gameOverPage {
-    background: rgba(0, 0, 0, 0.8);
-}
-
-#messageBox, #gameOverBox {
+#messageBox {
     padding: 20px;
     background-color: #F0EAD6;
     border: 1px solid #8B4513;
@@ -35,7 +28,7 @@ body {
     text-align: center;
 }
 
-#startButton, #restartButton {
+#startButton {
     padding: 20px 40px;
     font-size: 24px;
     cursor: pointer;
@@ -48,6 +41,18 @@ body {
     }
     to {
         opacity: 1;
+    }
+}
+
+@keyframes gameOverAnimation {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-150px);
+    }
+    100% {
+        transform: translateY(500px);
     }
 }
 
@@ -64,4 +69,16 @@ canvas {
     color: white;
     font-size: 24px;
     font-family: Arial, sans-serif;
+}
+
+#gameOverMessage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+    color: red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
