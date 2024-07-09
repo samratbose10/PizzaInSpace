@@ -1,19 +1,26 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const textElement = document.getElementById('intro-text');
-    const buttonElement = document.getElementById('continue-btn');
-    const text = "Hey I'm on a mission";
+document.addEventListener('DOMContentLoaded', function() {
+    const storyText = "Welcome to the adventure. Your journey begins now...";
+    const textElement = document.getElementById('story-text');
+    const cursorElement = document.getElementById('cursor');
+    const continueBtn = document.getElementById('continue-btn');
+    
     let index = 0;
 
-    function typeText() {
-        if (index < text.length) {
-            textElement.innerHTML = text.substring(0, index + 1) + '<span class="cursor">|</span>';
+    function typeWriter() {
+        if (index < storyText.length) {
+            textElement.innerHTML += storyText.charAt(index);
             index++;
-            setTimeout(typeText, 150);
+            setTimeout(typeWriter, 100);
         } else {
-            textElement.innerHTML = text;
-            buttonElement.classList.remove('hidden');
+            cursorElement.style.display = 'none';
+            continueBtn.classList.add('show');
         }
     }
 
-    typeText();
+    typeWriter();
+
+    continueBtn.addEventListener('click', function() {
+
+        window.location.href = 'nextpage.html'; 
+    });
 });

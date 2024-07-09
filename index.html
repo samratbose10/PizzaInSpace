@@ -3,14 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pizza in Space - Intro</title>
-    <link rel="stylesheet" href="intro.css">
+    <title>Story Game</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="intro-space">
-        <div class="intro-text" id="intro-text">Hey I'm on a mission<span class="cursor">|</span></div>
-        <button id="continue-btn" class="hidden" onclick="location.href='game.html'">Continue</button>
+    <div class="container">
+        <div class="typing-container">
+            <p id="story-text"></p>
+            <span id="cursor">|</span>
+        </div>
+        <button id="continue-btn" style="display:none;">Continue</button>
     </div>
-    <script src="intro.js"></script>
+
+    <script src="script.js"></script>
 </body>
 </html>
