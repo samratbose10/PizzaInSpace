@@ -21,6 +21,8 @@ const stars = [];
 const starCount = 100;
 const asteroids = [];
 const asteroidCount = 10;
+let asteroidsActive = false;
+let gameStarted = false;
 
 for (let i = 0; i < starCount; i++) {
     stars.push({
@@ -68,23 +70,48 @@ function drawStars() {
 }
 
 function drawAsteroids() {
-    asteroids.forEach(asteroid => {
-        ctx.drawImage(asteroidImg, asteroid.x, asteroid.y, asteroid.width, asteroid.height);
-        asteroid.y += asteroid.speed;
-        if (asteroid.y > canvas.height) {
-            asteroid.y = 0;
-            asteroid.x = Math.random() * canvas.width;
-        }
-        if (
-            pizza.x < asteroid.x + asteroid.width &&
-            pizza.x + pizza.width > asteroid.x &&
-            pizza.y < asteroid.y + asteroid.height &&
-            pizza.height + pizza.y > asteroid.y
-        ) {
-            document.getElementById('gameOverPage').style.display = 'flex';
-            canvas.style.display = 'none';
-        }
-    });
+    if (asteroidsActive) {
+        asteroids.forEach(asteroid => {
+            ctx.drawImage(asteroidImg, asteroid.x, asteroid.y, asteroid.width, asteroid.height);
+            asteroid.y += asteroid.speed;
+            if (asteroid.y > canvas.height) {
+                asteroid.y = 0;
+                asteroid.x = Math.random() * canvas.width;
+            }
+            if (
+                pizza.x < asteroid.x + asteroid.width &&
+                pizza.x + pizza.width > asteroid.x &&
+                pizza.y < asteroid.y + asteroid.height &&
+                pizza.height + pizza.y > asteroid.y
+            ) {
+                document.getElementById('gameOverPage').style.display = 'flex';
+                canvas.style.display = 'none';
+                asteroidsActive = false;
+                gameStarted = false;
+            }
+        });
+    }
+}
+
+function drawTimer(timeLeft) {
+    ctx.fillStyle = 'white';
+    ctx.font = '24px Arial';
+    ctx.fillText(`Time left: ${timeLeft}`, 10, 30);
+}
+
+let timeLeft = 25;
+function countdown() {
+    if (timeLeft > 0) {
+        timeLeft -= 1;
+        setTimeout(countdown, 1000);
+    } else {
+        asteroidsActive = false;
+    }
+}
+
+function startAsteroids() {
+    asteroidsActive = true;
+    countdown();
 }
 
 function gameLoop() {
@@ -92,6 +119,9 @@ function gameLoop() {
     drawStars();
     drawPizza();
     drawAsteroids();
+    if (gameStarted) {
+        drawTimer(timeLeft);
+    }
     requestAnimationFrame(gameLoop);
 }
 
@@ -102,12 +132,26 @@ pizzaImg.onload = () => {
 document.getElementById('startButton').addEventListener('click', () => {
     document.getElementById('landingPage').style.display = 'none';
     canvas.style.display = 'block';
+    gameStarted = true;
+    setTimeout(startAsteroids, 5000);
 });
 
 document.getElementById('restartButton').addEventListener('click', () => {
     document.getElementById('gameOverPage').style.display = 'none';
     document.getElementById('landingPage').style.display = 'flex';
+    timeLeft = 25;
+    asteroidsActive = false;
+    gameStarted = false;
+    resetAsteroids();
+    canvas.style.display = 'none';
 });
+
+function resetAsteroids() {
+    for (let i = 0; i < asteroids.length; i++) {
+        asteroids[i].x = Math.random() * canvas.width;
+        asteroids[i].y = Math.random() * canvas.height;
+    }
+}
 
 window.onload = () => {
     setTimeout(() => {
