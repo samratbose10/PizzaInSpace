@@ -1,51 +1,39 @@
-body, html {
-    height: 100%;
+body {
     margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    overflow: hidden;
+}
+
+#landingPage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background: url('https://art.pixilart.com/sr2acbd0eb694d5.gif') no-repeat center center fixed;
     background-size: cover;
-    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
-
-.container {
-    text-align: center;
-    color: white;
-}
-
-.typing-container {
-    display: inline-block;
-    position: relative;
-}
-
-#cursor {
-    display: inline-block;
-    animation: blink 1s infinite;
-}
-
-@keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-}
-
-#continue-btn {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
+#startButton {
+    padding: 20px 40px;
+    font-size: 24px;
     cursor: pointer;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    transition: opacity 0.5s ease;
+    margin-top: 20px;
 }
 
-#continue-btn.show {
-    display: inline-block;
-    opacity: 1;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
-#continue-btn.hide {
-    opacity: 0;
+canvas {
+    display: block;
+    background: url('https://art.pixilart.com/f537f850479bdba.gif') no-repeat center center fixed;
+    background-size: cover;
 }
