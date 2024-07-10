@@ -35,6 +35,44 @@ body {
     margin-top: 20px;
 }
 
+#characterSelection {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: url('https://art.pixilart.com/sr2acbd0eb694d5.gif') no-repeat center center fixed;
+    background-size: cover;
+    text-align: center;
+}
+
+#pizzaOptions {
+    display: flex;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.pizza-option {
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.pizza-option.selected {
+    border: 2px solid #FFD700;
+}
+
+#confirmButton {
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -154,4 +192,20 @@ canvas {
     display: block;
     background: url('https://art.pixilart.com/sr296042b578daws3.gif') no-repeat center center fixed;
     background-size: cover;
+}
+
+#page2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://art.pixilart.com/06f432b7ce7a.gif') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    color: white;
 }

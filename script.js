@@ -3,8 +3,10 @@ const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
+let selectedPizza = 'piz1.png';
+
 const pizzaImg = new Image();
-pizzaImg.src = 'piz.png';
+pizzaImg.src = selectedPizza;
 
 const asteroidImg = new Image();
 asteroidImg.src = 'astro.png';
@@ -26,6 +28,8 @@ let asteroidsActive = false;
 let gameStarted = false;
 let gameOver = false;
 
+const backgroundMusic = document.getElementById('backgroundMusic');
+
 for (let i = 0; i < starCount; i++) {
     stars.push({
         x: Math.random() * canvas.width,
@@ -38,7 +42,7 @@ for (let i = 0; i < starCount; i++) {
 for (let i = 0; i < asteroidCount; i++) {
     asteroids.push({
         x: Math.random() * canvas.width,
-        y: Math.random() * (canvas.height / 2), 
+        y: Math.random() * (canvas.height / 2),
         width: 50,
         height: 50,
         speed: Math.random() * 3 + 2
@@ -134,8 +138,8 @@ function displaySuccessMessage() {
     const successText = document.getElementById('successText');
     successText.innerHTML = "Yayy, I survived itttttt....";
     setTimeout(() => {
-        window.location.href = "success.html"; 
-    }, 5000); 
+        window.location.href = "success.html";
+    }, 5000);
 }
 
 function startAsteroids() {
@@ -163,9 +167,32 @@ pizzaImg.onload = () => {
 
 document.getElementById('startButton').addEventListener('click', () => {
     document.getElementById('landingPage').style.display = 'none';
-    canvas.style.display = 'block';
-    gameStarted = true;
-    setTimeout(startAsteroids, 5000);
+    document.getElementById('characterSelection').style.display = 'flex';
+    setTimeout(() => {
+        document.getElementById('startButton').style.display = 'block';
+        document.getElementById('startButton').style.animation = 'fadeIn 2s forwards';
+    }, 3000);
+});
+
+document.querySelectorAll('.pizza-option').forEach(option => {
+    option.addEventListener('click', (e) => {
+        document.querySelectorAll('.pizza-option').forEach(option => option.classList.remove('selected'));
+        e.target.classList.add('selected');
+        selectedPizza = e.target.getAttribute('data-pizza');
+    });
+});
+
+document.getElementById('confirmButton').addEventListener('click', () => {
+    if (selectedPizza) {
+        pizzaImg.src = selectedPizza;
+        document.getElementById('characterSelection').style.display = 'none';
+        canvas.style.display = 'block';
+        gameStarted = true;
+        backgroundMusic.play();
+        setTimeout(startAsteroids, 5000);
+    } else {
+        alert("Please select a pizza character.");
+    }
 });
 
 function resetAsteroids() {
@@ -174,10 +201,3 @@ function resetAsteroids() {
         asteroid.y = Math.random() * (canvas.height / 2);
     });
 }
-
-window.onload = () => {
-    setTimeout(() => {
-        document.getElementById('startButton').style.display = 'block';
-        document.getElementById('startButton').style.animation = 'fadeIn 2s forwards';
-    }, 3000);
-};

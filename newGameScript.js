@@ -40,7 +40,7 @@ function updatePizza() {
     pizza.x += pizza.velocityX;
 
     if (pizza.x + pizza.width > newGameCanvas.width) {
-        pizza.x = newGameCanvas.width - pizza.width;
+        window.location.href = "page2.html";
     }
     if (pizza.x < 0) {
         pizza.x = 0;
