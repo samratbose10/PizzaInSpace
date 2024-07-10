@@ -125,7 +125,14 @@ function countdown() {
         setTimeout(countdown, 1000);
     } else {
         asteroidsActive = false;
+        displaySuccessMessage();
     }
+}
+
+function displaySuccessMessage() {
+    document.getElementById('successMessage').style.display = 'flex';
+    const successText = document.getElementById('successText');
+    successText.innerHTML = "Yayy, I survived itttttt....";
 }
 
 function startAsteroids() {
