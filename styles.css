@@ -141,3 +141,17 @@ canvas {
     text-align: center;
     color: white;
 }
+
+#congratsMessage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+#newGameCanvas {
+    display: block;
+    background: url('https://art.pixilart.com/sr296042b578daws3.gif') no-repeat center center fixed;
+    background-size: cover;
+}
