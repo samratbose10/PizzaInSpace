@@ -102,6 +102,7 @@ canvas {
 }
 
 #successMessage {
+    position: absolute;
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
@@ -123,4 +124,20 @@ canvas {
     white-space: nowrap;
     overflow: hidden;
     animation: typing 5s steps(30, end), blinkCursor 0.75s step-end infinite;
+}
+
+#successPage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://art.pixilart.com/sr296042b578daws3.gif') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    color: white;
 }

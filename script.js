@@ -133,6 +133,9 @@ function displaySuccessMessage() {
     document.getElementById('successMessage').style.display = 'flex';
     const successText = document.getElementById('successText');
     successText.innerHTML = "Yayy, I survived itttttt....";
+    setTimeout(() => {
+        window.location.href = "success.html"; 
+    }, 5000); 
 }
 
 function startAsteroids() {
