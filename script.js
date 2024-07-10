@@ -45,7 +45,7 @@ for (let i = 0; i < asteroidCount; i++) {
         y: Math.random() * (canvas.height / 2),
         width: 50,
         height: 50,
-        speed: Math.random() * 3 + 2
+        speed: Math.random() * 1.5 + 1 
     });
 }
 
@@ -129,17 +129,8 @@ function countdown() {
         setTimeout(countdown, 1000);
     } else {
         asteroidsActive = false;
-        displaySuccessMessage();
+        window.location.href = "newgame.html";
     }
-}
-
-function displaySuccessMessage() {
-    document.getElementById('successMessage').style.display = 'flex';
-    const successText = document.getElementById('successText');
-    successText.innerHTML = "Yayy, I survived itttttt....";
-    setTimeout(() => {
-        window.location.href = "success.html";
-    }, 5000);
 }
 
 function startAsteroids() {
@@ -168,10 +159,6 @@ pizzaImg.onload = () => {
 document.getElementById('startButton').addEventListener('click', () => {
     document.getElementById('landingPage').style.display = 'none';
     document.getElementById('characterSelection').style.display = 'flex';
-    setTimeout(() => {
-        document.getElementById('startButton').style.display = 'block';
-        document.getElementById('startButton').style.animation = 'fadeIn 2s forwards';
-    }, 3000);
 });
 
 document.querySelectorAll('.pizza-option').forEach(option => {
@@ -201,3 +188,10 @@ function resetAsteroids() {
         asteroid.y = Math.random() * (canvas.height / 2);
     });
 }
+
+window.onload = () => {
+    setTimeout(() => {
+        document.getElementById('startButton').style.display = 'block';
+        document.getElementById('startButton').style.animation = 'fadeIn 2s forwards';
+    }, 3000);
+};

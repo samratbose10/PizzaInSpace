@@ -1,12 +1,12 @@
-const newGameCanvas = document.getElementById('newGameCanvas');
+const newGameCanvas = document.getElementById('newCanvas');
 const newCtx = newGameCanvas.getContext('2d');
 newGameCanvas.width = window.innerWidth;
 newGameCanvas.height = window.innerHeight;
 
-const pizzaImg = new Image();
-pizzaImg.src = 'piz.png';
+const newPizzaImg = new Image();
+newPizzaImg.src = 'piz.png';
 
-const pizza = {
+const newPizza = {
     x: newGameCanvas.width / 2 - 50,
     y: newGameCanvas.height - 100,
     width: 100,
@@ -18,53 +18,49 @@ const pizza = {
     moving: false
 };
 
-function drawPizza() {
-    newCtx.drawImage(pizzaImg, pizza.x, pizza.y, pizza.width, pizza.height);
+function drawNewPizza() {
+    newCtx.drawImage(newPizzaImg, newPizza.x, newPizza.y, newPizza.width, newPizza.height);
 }
 
 document.addEventListener('keydown', (event) => {
     if (event.key === 'ArrowRight') {
-        pizza.velocityX = pizza.speed;
-        pizza.moving = true;
+        newPizza.velocityX = newPizza.speed;
+        newPizza.moving = true;
     } else if (event.key === 'ArrowUp') {
-        pizza.y -= pizza.speed;
+        newPizza.y -= newPizza.speed;
     } else if (event.key === 'ArrowDown') {
-        pizza.y += pizza.speed;
+        newPizza.y += newPizza.speed;
     }
 });
 
-function updatePizza() {
-    if (pizza.moving) {
-        pizza.velocityX -= pizza.gravity;
+function updateNewPizza() {
+    if (newPizza.moving) {
+        newPizza.velocityX -= newPizza.gravity;
     }
-    pizza.x += pizza.velocityX;
+    newPizza.x += newPizza.velocityX;
 
-    if (pizza.x + pizza.width > newGameCanvas.width) {
+    if (newPizza.x + newPizza.width > newGameCanvas.width) {
         window.location.href = "page2.html";
     }
-    if (pizza.x < 0) {
-        pizza.x = 0;
+    if (newPizza.x < 0) {
+        newPizza.x = 0;
     }
 
-    if (pizza.y + pizza.height > newGameCanvas.height) {
-        pizza.y = newGameCanvas.height - pizza.height;
+    if (newPizza.y + newPizza.height > newGameCanvas.height) {
+        newPizza.y = newGameCanvas.height - newPizza.height;
     }
-    if (pizza.y < 0) {
-        pizza.y = 0;
+    if (newPizza.y < 0) {
+        newPizza.y = 0;
     }
 }
 
-function gameLoop() {
+function newGameLoop() {
     newCtx.clearRect(0, 0, newGameCanvas.width, newGameCanvas.height);
-    updatePizza();
-    drawPizza();
-    requestAnimationFrame(gameLoop);
+    updateNewPizza();
+    drawNewPizza();
+    requestAnimationFrame(newGameLoop);
 }
 
-pizzaImg.onload = () => {
-    setTimeout(() => {
-        document.getElementById('congratsMessage').style.display = 'none';
-        newGameCanvas.style.display = 'block';
-        gameLoop();
-    }, 5000);
+newPizzaImg.onload = () => {
+    newGameLoop();
 };
